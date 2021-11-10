@@ -1,0 +1,50 @@
+body,
+html {
+    background: black;
+    color: white;
+    overflow: hidden;
+    font-family: 'IBM Plex Mono', monospace;
+}
+
+.preload_font {
+    font-family: 'IBM Plex Mono', monospace;
+    position: absolute;
+    top: -100px;
+    left: -100px;
+}
+
+.username {
+    cursor: default;
+    font-size: 48px;
+    display: inline-block;
+    letter-spacing: 10px;
+}
+
+.username:hover {
+    color: gold;
+}
+
+.holder {
+    position: absolute;
+    top: 0;
+}
+
+.no_select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.socials {
+    position: fixed;
+    bottom: 16px;
+    right: 26px;
+}
+
+.socials img {
+    filter: invert(1);
+    width: 32px;
+}
