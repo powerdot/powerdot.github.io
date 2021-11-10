@@ -11,8 +11,8 @@
     };
 
     function updateCursorPosition(p) {
-        cursor.x = p.x;
-        cursor.y = p.y;
+        cursor.x = Math.abs(p.x);
+        cursor.y = Math.abs(p.y);
     }
     addEventListener('mousemove', updateCursorPosition, false);
 
@@ -21,6 +21,7 @@
         for (let letter_i in ILYADEVMAN) {
             setTimeout(function () {
                 let cursor_seed = Number("1." + (cursor.x * cursor.y));
+
                 let randomLetter = Math.floor(Math.random() * cursor_seed * 26) + 65;
                 let start = Math.floor(ILYADEVMAN_LENGTH / 2);
                 let prev_letter = start - letter_i;
