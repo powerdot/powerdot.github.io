@@ -76,7 +76,7 @@
         holder.appendChild(username);
         username.addEventListener('click', function (e) {
             if (!username.hasAttribute('interval')) {
-                let from = e.path[0].getAttribute('i');
+                let from = e ? e.target.getAttribute('i') : undefined;
                 let cursor_seed = Number("1." + (cursor.x * cursor.y));
                 cipherText(username, cursor_seed, from);
                 username.setAttribute('interval', 'yep');
