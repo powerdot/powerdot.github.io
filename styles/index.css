@@ -48,3 +48,7 @@ html {
     filter: invert(1);
     width: 32px;
 }
+
+.screensaver .socials{
+    display: none;
+}

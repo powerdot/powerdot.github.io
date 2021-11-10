@@ -4,6 +4,7 @@
     let ILYADEVMAN_ARRAY = ILYADEVMAN.split("");
     let LINES_COUNT = 9;
     let CIPHER_TIME = 500;
+    let AS_SCREENSAVER = (new URL(document.location.href)).searchParams.has('screensaver');
 
     let cursor = {
         x: 0,
@@ -16,19 +17,20 @@
     }
     addEventListener('mousemove', updateCursorPosition, false);
 
-    function cipherText(username) {
+    function cipherText(username, cursor_seed, from = undefined) {
         let time = CIPHER_TIME / Math.floor(ILYADEVMAN_LENGTH / 2);
+        let start = Math.floor(ILYADEVMAN_LENGTH / 2);
+        if (from !== undefined) start = Number(from);
         for (let letter_i in ILYADEVMAN) {
             setTimeout(function () {
-                let cursor_seed = Number("1." + (cursor.x * cursor.y));
-
                 let randomLetter = Math.floor(Math.random() * cursor_seed * 26) + 65;
-                let start = Math.floor(ILYADEVMAN_LENGTH / 2);
                 let prev_letter = start - letter_i;
                 let next_letter = start + Number(letter_i);
                 let text = username.innerText.split('');
                 if (next_letter == prev_letter) {
-                    if (text[next_letter]) text[next_letter] = String.fromCharCode(randomLetter);
+                    if (text[next_letter]) {
+                        text[next_letter] = String.fromCharCode(randomLetter);
+                    }
                 } else {
                     if (text[next_letter]) {
                         randomLetter = Math.floor(Math.random() * cursor_seed * 26) + 65;
@@ -41,7 +43,7 @@
                 }
                 username.innerHTML = text.join('');
             }, time);
-            time += CIPHER_TIME / username.innerHTML.length;
+            time += CIPHER_TIME / ILYADEVMAN_LENGTH;
         }
     }
 
@@ -61,17 +63,25 @@
             let current_timing = (line_i * 200) + (username_i * 100) + (i * 10);
             setTimeout(function () {
                 let current_letter = ILYADEVMAN[i];
-                username.innerHTML += current_letter;
+                username.innerHTML += "<span i='" + i + "'>" + current_letter + "</span>";
             }, current_timing);
+            if (AS_SCREENSAVER) {
+                setTimeout(function () {
+                    cipherText(username, 1, 0);
+                    username.click()
+                }, current_timing + 1000);
+            }
         }
 
         holder.appendChild(username);
-        username.addEventListener('click', function () {
+        username.addEventListener('click', function (e) {
             if (!username.hasAttribute('interval')) {
-                cipherText(username);
+                let from = e.path[0].getAttribute('i');
+                let cursor_seed = Number("1." + (cursor.x * cursor.y));
+                cipherText(username, cursor_seed, from);
                 username.setAttribute('interval', 'yep');
                 setInterval(function () {
-                    cipherText(username);
+                    cipherText(username, cursor_seed, from);
                 }, CIPHER_TIME);
             }
         });
@@ -90,5 +100,8 @@
                 }
             }, 250);
         });
+        if (AS_SCREENSAVER) {
+            document.body.classList.add("screensaver")
+        }
     });
 })()
