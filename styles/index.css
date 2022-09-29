@@ -49,6 +49,30 @@ html {
     width: 32px;
 }
 
-.screensaver .socials{
+.screensaver .socials {
     display: none;
+}
+
+.resume {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    padding: 20px;
+    background: black;
+    z-index: 1;
+    text-align: center;
+}
+
+.resume a {
+    border: solid 1px white;
+    padding: 10px 20px;
+    display: block;
+    margin-top: 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.resume a:hover {
+    background: white;
+    color: black;
 }
