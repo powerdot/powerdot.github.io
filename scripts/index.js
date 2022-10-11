@@ -89,6 +89,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+        // Run page animation
         document.fonts.ready.then(function () {
             setTimeout(function () {
                 for (let i = 1; i <= LINES_COUNT; i++) {
@@ -102,6 +103,21 @@
         });
         if (AS_SCREENSAVER) {
             document.body.classList.add("screensaver")
+        }
+
+        // Update resume language
+        let resume = {
+            text: document.querySelector(".resume .text"),
+            link: document.querySelector(".resume a"),
+        }
+        if (navigator.language.indexOf("ru") > -1) {
+            resume.text.innerHTML = "Я в поиске работы!";
+            resume.link.innerHTML = "Открыть резюме"
+            resume.link.setAttribute("href", "https://storage.yandexcloud.net/ilyich/%D0%A0%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5.pdf")
+        } else {
+            resume.text.innerHTML = "I'm looking for a job!";
+            resume.link.innerHTML = "Open resume"
+            resume.link.setAttribute("href", "https://storage.yandexcloud.net/ilyich/Resume.pdf")
         }
     });
 })()
