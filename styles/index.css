@@ -61,6 +61,7 @@ html {
     background: black;
     z-index: 1;
     text-align: center;
+    display: none;
 }
 
 .resume a {
